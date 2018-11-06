@@ -1,6 +1,10 @@
 package cs11F;
 
+import java.io.FileNotFoundException;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +18,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Display extends Application{
+	
+	String sourceText;
+	int seedLengthInt;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -50,12 +57,35 @@ public class Display extends Application{
 		Label seedLength = new Label("Seed length: ");
 		grid.add(seedLength, 0, 2);
 		
-		TextField seedLengthField = new TextField();
+		TextField seedLengthField = new TextField("12");
 		grid.add(seedLengthField, 1, 2);
 		
 		Button btn = new Button("Write");
 		grid.add(btn, 1, 4);
 		
+		
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event){
+				if(sourceField.getText().isEmpty()) {
+					sourceText = "hamlet.txt";
+				}
+				else {
+					sourceText = sourceField.getText();
+				}
+				if(sourceField.getText().isEmpty()) {
+					seedLengthInt = 12;
+				}
+				else {
+					seedLengthInt = Integer.parseInt(seedLengthField.getText());
+				}
+				try {
+					RandomWriter.write(sourceText, seedLengthInt, 500);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		
 	}

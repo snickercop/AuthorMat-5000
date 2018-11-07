@@ -25,24 +25,25 @@ public class RandomWriter {
 		return text;
 	}
 	
-	public static void write(String source, int seedLength, int length) throws FileNotFoundException {
+	public static String write(String source, int seedLength, int length) throws FileNotFoundException {
 		//int length = Integer.parseInt(args[1]);
 		//String result = args[3];
 		
 		String text = getText(source);
+		String returnString = "";
 
 		CharGenerator generator = new CharGenerator(text, seedLength);
 		ArrayList<Character> nextsArray = generator.getProbableNexts();
-		System.out.println("my seed: " + generator.charSeed);
-		System.out.println("my string: ");
+		returnString += (generator.charSeed + "⚑");
 		for(int i = 0; i < length; i++) {
 			char nextChar = generator.getNextChar(nextsArray);
-			System.out.print(nextChar);
+			returnString += (nextChar);
 			generator.charSeed.add(nextChar);
 			generator.charSeed.remove(0);
 			//System.out.println(generator.charSeed);
 			nextsArray = generator.getProbableNexts();
 		}
+		return returnString;
 	}
 	
 	

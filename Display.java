@@ -98,10 +98,26 @@ public class Display extends Application{
 					scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 					grid2.add(scenetitle, 0, 0, 2, 1);
 					String[] textAndMeta = RandomWriter.write(sourceText, seedLengthInt, 500).split("@");
-					Label sdLabel = new Label("Seed: " + textAndMeta[0]);
+					Label sdLabel = new Label("                     Seed: " + textAndMeta[0]);
 					grid2.add(sdLabel, 2, 1);
 					TextArea newText = new TextArea(textAndMeta[1]);
 					grid2.add(newText, 2, 2);
+					Button goback = new Button("Go Back");
+					grid2.add(goback, 2,1);
+					
+					goback.setOnAction(new EventHandler<ActionEvent>(){
+						@Override
+						public void handle(ActionEvent event){
+							try{
+									start(primaryStage);
+								}
+							catch(Exception e){
+								e.printStackTrace();
+							}
+						}
+					});
+					
+					
 				} 
 				catch (FileNotFoundException e) {
 					e.printStackTrace();
